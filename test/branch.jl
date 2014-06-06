@@ -111,13 +111,16 @@ end
                         Oid("5b5b025afb0b4c913b4c338a42934a3863bf3644"))
 
     @test new_branch != nothing
-    @test branch_name == name(new_branch)
-    @test canonical_name(new_branch) == "refs/heads/$branch_name"
+    @test normalize_string(branch_name, :NFC) ==
+        normalize_string(name(new_branch), :NFC)
+    @test normalize_string(canonical_name(new_branch), :NFC) ==
+        normalize_string("refs/heads/$branch_name", :NFC)
 
     @test tip(new_branch) != nothing
     @test Oid(tip(new_branch)) == Oid("5b5b025afb0b4c913b4c338a42934a3863bf3644")
 
-    @test any(b -> name(b) == branch_name, iter_branches(test_repo))
+    @test any(b -> normalize_string(name(b), :NFC) == normalize_string(branch_name, :NFC),
+        iter_branches(test_repo))
 end
 
 #:test_create_branch_short_sha
