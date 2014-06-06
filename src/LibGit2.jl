@@ -7,7 +7,7 @@ type LibGitThreadsHandle
         finalizer(handle, h -> begin
             err = ccall((:git_threads_shutdown, @unix? :libgit2 : :git2), Cint, ())
             if err != zero(Cint)
-                error("error uninitalizing LibGit2 library")
+                error("error uninitializing LibGit2 library")
             end
         end)
         return handle
