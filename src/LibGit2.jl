@@ -5,10 +5,7 @@ type LibGitThreadsHandle
     function LibGitThreadsHandle()
         handle = new()
         finalizer(handle, h -> begin
-            err = ccall((:git_threads_shutdown, @unix? :libgit2 : :git2), Cint, ())
-            if err != zero(Cint)
-                error("error uninitializing LibGit2 library")
-            end
+            err = ccall((:git_threads_shutdown, @unix? :libgit2 : :git2), Void, ())
         end)
         return handle
     end
