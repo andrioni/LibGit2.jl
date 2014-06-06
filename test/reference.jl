@@ -215,7 +215,7 @@ end
 end
 
 @with_tmp_repo_access begin
-   @test repo_workdir(test_repo) == test_repo_path
+   @test realpath(repo_workdir(test_repo)) == realpath(test_repo_path)
    
    o = Oid("36060c58702ed4c2a40832c51758d5344201d89a")
    ref = create_ref(test_repo, "refs/heads/unit_test", o)
