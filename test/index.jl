@@ -46,7 +46,7 @@ function new_idx_entry()
                       1000,
                       234881027,
                       88888,
-                      33199,
+                      33188,
                       502,
                       502,
                       false,
@@ -120,7 +120,7 @@ end
     entry.file_size = 1000
     entry.dev = 234881027
     entry.ino = 88888
-    entry.mode = 33199
+    entry.mode = 33188
     entry.uid = 502
     entry.gid = 502
     entry.stage = 3
@@ -199,7 +199,7 @@ reload!(index)
 @test length(index) == 2
 
 entry = getentry(index, "new_path", 3)
-@test entry.mode == 33199
+@test entry.mode == 33188
 
 close(test_repo)
 run(`rm -rf $tmp_path`)
