@@ -204,8 +204,9 @@ end
     create_ref(test_repo,
                "refs/heads/$UNICODE_REF_NAME",
                "refs/heads/master")
-    refs = map(r -> replace(name(r), "refs/", ""), iter_refs(test_repo))
-    @test "heads/$UNICODE_REF_NAME" in refs
+    refs = map(r -> normalize_string(replace(name(r), "refs/", ""), :NFC),
+               iter_refs(test_repo))
+    @test normalize_string("heads/$UNICODE_REF_NAME", :NFC) in refs
 end
 
 @with_tmp_repo_access begin
