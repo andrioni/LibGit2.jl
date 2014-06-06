@@ -61,7 +61,7 @@ function committer(c::GitCommit)
     return sig
 end
 
-function parent(c::GitCommit, n::Integer)
+function Base.parent(c::GitCommit, n::Integer)
     @assert c.ptr != C_NULL
     n >= 0 || throw(ArgumentError("n must be greater than or equal to 0"))
     commit_ptr = Array(Ptr{Void}, 1)

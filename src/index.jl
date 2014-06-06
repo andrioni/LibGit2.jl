@@ -178,7 +178,7 @@ function IndexEntry(ptr::Ptr{api.GitIndexEntry})
 end
 
 #TODO: add! is defined in Base
-function add!(idx::GitIndex, entry::IndexEntry)
+function Base.add!(idx::GitIndex, entry::IndexEntry)
     @assert idx.ptr != C_NULL
     gentry = api.GitIndexEntry(entry)
     @check ccall((:git_index_add, api.libgit2), Cint,
@@ -187,7 +187,7 @@ function add!(idx::GitIndex, entry::IndexEntry)
     return idx
 end
 
-function add!(idx::GitIndex, path::String)
+function Base.add!(idx::GitIndex, path::String)
     @assert idx.ptr != C_NULL
     bpath = bytestring(path)
     @check api.git_index_add_bypath(idx.ptr, bpath)
